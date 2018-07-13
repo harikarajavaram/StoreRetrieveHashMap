@@ -49,7 +49,8 @@ public class HelperClass{
 		longintmap.put(106877L, 2);
 		longintmap.put(221789L, 3);
 		storeHashMap(longintmap);
-		readHashMap();
+		HashMap<Long,Integer> hm = readHashMap();
+		System.out.println(hm);
 	}
 	public void storeHashMap(HashMap<Long,Integer> longintmap) {		
         ByteArrayOutputStream bObj = new ByteArrayOutputStream();
@@ -57,7 +58,7 @@ public class HelperClass{
                 try {
                 out = new ObjectOutputStream(bObj);
                 out.writeObject(longintmap);
-                System.out.println("harika");
+                //System.out.println("harika");
                // StoreBlob b = new StoreBlob();
                 //b.obj = out;
                 out.close();
@@ -69,10 +70,12 @@ public class HelperClass{
                 e.printStackTrace();
             }	
       }	
-	public void readHashMap() {	
+	
+	public HashMap<Long,Integer> readHashMap() {	
 		byte[] byteIn = blobrep.readBlob();
         ByteArrayInputStream bObj = new ByteArrayInputStream(byteIn);
             ObjectInputStream out;
+            HashMap longintmap1 = null;
                 try {
                 out = new ObjectInputStream(bObj);
                 //out.writeObject(longintmap);
@@ -80,7 +83,7 @@ public class HelperClass{
                // StoreBlob b = new StoreBlob();
                 //b.obj = out;
                 try {
-					HashMap longintmap1 = (HashMap) out.readObject();
+					longintmap1 = (HashMap) out.readObject();
 					System.out.println(longintmap1);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -93,6 +96,7 @@ public class HelperClass{
                 
               } catch (IOException e) {
                 e.printStackTrace();
-            }	
+            }
+            return longintmap1;
       }	
 }
